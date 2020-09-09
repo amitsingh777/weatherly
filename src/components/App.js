@@ -4,8 +4,8 @@ import SearchBar from "./SearchBar";
 import axios from "axios";
 
 class App extends React.Component {
-//   state = { daily: [], today: {}, lat: null, long: null };
-  state = { cityName:"",forecast:[],fiveDaysForecast:[] };
+  //   state = { daily: [], today: {}, lat: null, long: null };
+  state = { cityName: "", forecast: [], fiveDaysForecast: [] };
   componentDidMount() {
     this.onTermSubmit("Mumbai");
   }
@@ -13,39 +13,43 @@ class App extends React.Component {
     let response = await axios.get(
       `https://api.openweathermap.org/data/2.5/forecast?q=${term}&appid=77784032c9927d023ac5951c8c33cdda&units=metric`
     );
-    this.setState({cityName:response.data.city.name});
-    this.setState({forecast:response.data.list});
+    this.setState({ cityName: response.data.city.name });
+    this.setState({ forecast: response.data.list });
     this.fiveDays();
-    console.log(this.state.cityName,this.state.fiveDaysForecast);
   };
-  correctHour=()=>{
-    let hours=[3,6,9,12,15,18,21];
-    let currentHour=new Date().getHours();
+  correctHour = () => {
+    let hours = [3, 6, 9, 12, 15, 18, 21];
+    let currentHour = new Date().getHours();
     // let currentHour=new Date('2020-09-09T24:00:00').getHours();
-    
-    for(let i=0;i<hours.length;i++){
-      if(currentHour === 0){
-        return '00'
-      }
-      else if(hours[i] === currentHour){
-        return hours[i]
-      }
-      else if(hours[i] < currentHour && currentHour < hours[i+1]){
-        let prev=Math.abs(hours[i] - currentHour);
-        let next=Math.abs(hours[i+1] - currentHour);
-        return prev < next ? hours[i] :hours[i+1]; 
+
+    for (let i = 0; i < hours.length; i++) {
+      if (currentHour === 0) {
+        return "00";
+      } else if (hours[i] === currentHour) {
+        return hours[i];
+      } else if (hours[i] < currentHour && currentHour < hours[i + 1]) {
+        let prev = Math.abs(hours[i] - currentHour);
+        let next = Math.abs(hours[i + 1] - currentHour);
+        return prev < next ? hours[i] : hours[i + 1];
       }
     }
+  };
+  fiveDays = () => {
+    let fiveDays = this.state.forecast.filter((data) => {
+      return data.dt_txt.includes(this.correctHour() + ":00:00");
+    });
+    this.setState({ fiveDaysForecast: fiveDays });
+  };
 
-  }
-  fiveDays = () =>{
-      let fiveDays=this.state.forecast.filter(data =>{  return data.dt_txt.includes(this.correctHour()+':00:00')});
-      this.setState({fiveDaysForecast:fiveDays});
-  }
-  
   renderCard = () => {
     let cards = this.state.fiveDaysForecast.map((current, index) => {
-      return <Card key={index} cityName={this.state.cityName} fiveDaysForecast={this.state.fiveDaysForecast[index]} />;
+      return (
+        <Card
+          key={index}
+          cityName={this.state.cityName}
+          fiveDaysForecast={this.state.fiveDaysForecast[index]}
+        />
+      );
     });
     return cards;
   };
@@ -55,9 +59,7 @@ class App extends React.Component {
         <header>
           <SearchBar onTermSubmit={this.onTermSubmit} />
         </header>
-        <main className="card-bunch">
-          {this.renderCard()}
-        </main>
+        <main className="card-bunch">{this.renderCard()}</main>
       </section>
     );
   }
