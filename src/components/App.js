@@ -19,10 +19,15 @@ class App extends React.Component {
     console.log(this.state.cityName,this.state.fiveDaysForecast);
   };
   correctHour=()=>{
-    let hours=[3,6,9,12,15,18,21,24];
+    let hours=[3,6,9,12,15,18,21];
     let currentHour=new Date().getHours();
+    // let currentHour=new Date('2020-09-09T24:00:00').getHours();
+    
     for(let i=0;i<hours.length;i++){
-      if(hours[i] === currentHour){
+      if(currentHour === 0){
+        return '00'
+      }
+      else if(hours[i] === currentHour){
         return hours[i]
       }
       else if(hours[i] < currentHour && currentHour < hours[i+1]){
