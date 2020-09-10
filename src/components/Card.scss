@@ -1,9 +1,9 @@
 .card {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items:center;
   background-color: $card-background-color;
-  max-width: 20rem;
+  min-width: 20rem;
   color: $text-secondary-color;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -20,6 +20,7 @@
   grid-template-rows: min-content;
   grid-template-columns: repeat(auto-fit, minmax(min-content, 26.7rem));
   grid-gap: 2rem;
+  justify-items: center;
   justify-content: center;
   
 }
