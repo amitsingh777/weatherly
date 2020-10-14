@@ -28,10 +28,11 @@
   justify-content: center;
 
   @media only screen and (max-width: 37.0625em) {
+    grid-template-columns: minmax(min-content, 80vw);
     grid-template-rows: minmax(min-content, 60vh);
     grid-auto-rows: 60vh;
-    letter-spacing:0.2rem;
-    word-spacing:0.5rem;
+    letter-spacing: 0.5rem;
+    word-spacing: 0.8rem;
   }
 }
 .day-date span {
