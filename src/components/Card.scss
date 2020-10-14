@@ -1,0 +1,29 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  background-color: $card-background-color;
+  min-width: 20rem;
+  color: $text-secondary-color;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0.2rem 0.2rem 1.2rem 1rem rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-0.2rem) scale(1.1);
+  }
+}
+.card-bunch {
+  display: grid;
+  grid-template-rows: min-content;
+  grid-template-columns: repeat(auto-fit, minmax(min-content, 26.7rem));
+  grid-gap: 2rem;
+  justify-items: center;
+  justify-content: center;
+  
+}
+.day-date span{
+  font-size:1.8rem;
+}
